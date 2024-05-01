@@ -11,16 +11,16 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Use Node.JS ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -29,4 +29,16 @@ jobs:
           npm install
           npm test
         env:
-          DBHOST: ${{ secrets.DBHOST}}
+          DBHOST: ${{ secrets.DBHOST }}
+
+  deploy:
+    name: Deploy
+    needs: [test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@0.0.8
+        with:
+          service-id: ${{ secretes.SERVICE_ID }}
+          api-key: ${{ secretes.RENDER_API_KEY }}
