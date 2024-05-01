@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "start": "node server.js",
+    "start": "node /note-taking-app-frontend/src/server.js",
     "test": "jest"
   },
   "dependencies": {
