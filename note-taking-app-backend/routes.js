@@ -3,6 +3,10 @@ const express = require('express');
 const router = express.Router();
 const Note = require('./Note.js');
 
+router.get('/api/welcome', async (req, res) => {
+  res.status(200).send({message: "Welcome to DE assignment project"});
+});
+
 // Get all notes
 router.get('/notes', async (req, res) => {
   const notes = await Note.find();
